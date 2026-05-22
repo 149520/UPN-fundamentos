@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jimena y Luigui</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0f172a;
+            /* Sleek dark background */
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+
+        #text-container {
+            font-size: 8vw;
+            display: flex;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: scale(0.5) translateY(50px);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="text-container"></div>
+
+    <script>
+        const text = "jimena y luigui";
+        const container = document.getElementById('text-container');
+
+        // Generate a random vibrant color using HSL
+        function getRandomColor() {
+            const hue = Math.floor(Math.random() * 360);
+            return `hsl(${hue}, 90%, 65%)`; // High saturation and lightness for vibrant colors
+        }
+
+        function renderText() {
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const span = document.createElement('span');
+
+                if (char === ' ') {
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = char;
+                    span.style.color = getRandomColor();
+                }
+
+                span.className = 'letter';
+                // Calculate delay so each letter appears sequentially
+                // Using 150ms delay between each letter
+                span.style.animationDelay = `${i * 0.15}s`;
+                container.appendChild(span);
+            }
+        }
+
+        // Add a slight delay before the animation starts
+        setTimeout(renderText, 300);
+    </script>
+</body>
+
+</html>
